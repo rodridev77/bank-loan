@@ -168,7 +168,6 @@ class AuthController extends Controller {
             $token = $clientDAO->getToken($client);
             if($token)
             {
-                session_start();
                 $_SESSION['token'] = $token['token'];
                 if($mail->sendEmail($token['token'],$client))
                 {

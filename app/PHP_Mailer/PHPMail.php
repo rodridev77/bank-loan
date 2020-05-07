@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 use app\Models\Client;
 
-require 'vendor/autoload.php';
+//require 'vendor/autoload.php';
 
 class PHPMail
 {

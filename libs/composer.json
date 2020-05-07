@@ -1,12 +1,14 @@
 {
     "require": {
-        "php": ">= 7"
+        "php": ">= 7",
+        "phpmailer/phpmailer": "^6.1"
     },
     "autoload": {
         "psr-4": {
             "app\\Controllers\\": "../app/Controllers/",
             "app\\Models\\": "../app/Models/",
-            "app\\Core\\": "../app/Core/"
+            "app\\Core\\": "../app/Core/",
+            "app\\PHP_Mailer\\": "../app/PHP_Mailer/"
         }
     }
 }

@@ -2,8 +2,8 @@
 
 include_once "environment.php";
 
-//include "libs/vendor/autoload.php";
-include_once dirname("my_autoload") . "/my_autoload.php";
+include "libs/vendor/autoload.php";
+//include_once dirname("my_autoload") . "/my_autoload.php";
 
 // CONFIGURAÇÃO DO AMBIENTE #####################
 if (ENVIRONMENT == "development") {

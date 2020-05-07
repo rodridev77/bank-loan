@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 include_once "app/config/config.inc.php";
 //include_once dirname("autoload") . "/autoload.php";
-include_once "my_autoload.php";
+//include_once "my_autoload.php";
 
 $core = new app\Core\Core();
 $core->run();

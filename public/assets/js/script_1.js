@@ -190,7 +190,7 @@ function recover(){
             name:name,
             email:email
         }
-        console.log(data)
+        //console.log(data)
         let options = {
             method: 'POST',
             body: JSON.stringify(data),
@@ -203,18 +203,17 @@ function recover(){
         fetch(URL,options)
         .then(response => response.json())
             .then(data => {
+                console.log(data)
                 let message = "Dados incorretos";
                 let modalAlert = '#signup-alert';
                 let classAlert = 'alert-warning'
                 if (data.success === true) {
+                    
                     message = "Uma mensagem contendo sua senha será enviado ao email fornecido";
                     classAlert = 'alert-success';
-
                     messageAlert(message, modalAlert, classAlert);
 
-
                 } else {
-                    console.log(data.success)
                     messageAlert(message, modalAlert, classAlert);
                 }
             }).catch(error => console.log(error))
