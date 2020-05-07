@@ -36,7 +36,7 @@
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#">Meu Cadastro</a>
+                                <a class="dropdown-item" href="<?php echo BASE_URL; ?>/client/perfil">Meu Cadastro</a>
                                 <a class="dropdown-item" href="#">Alterar Senha</a>
                                 <a class="dropdown-item" href="<?php echo BASE_URL; ?>/auth/signout">Sair</a>
                             </div>
@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid d-flex justify-content-center"> <!-- IMPORTANTE max-width 800px !-->
         <?php $this->loadViewInTemplate($viewPath, $viewName, $viewData); ?>
     </div>
 

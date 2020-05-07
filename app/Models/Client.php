@@ -2,15 +2,19 @@
 
 namespace app\Models;
 
+use app\Models\Address;
+
 class Client {
     private int $id;
     private string $name;
     private string $surname;
     private string $cpf;
+    private string $phone;
     private string $email;
     private string $pass;
     private float $ordenado;
     private int $active;
+    private ?Address $address;
 
     public function setId(int $id) : void {
         $this->id = trim($id);
@@ -44,6 +48,14 @@ class Client {
         return $this->cpf;
     }
 
+    public function setPhone(string $phone) : void {
+        $this->phone = trim($phone);
+    }
+
+    public function getPhone() : string {
+        return $this->phone;
+    }
+
     public function setEmail(string $email) : void {
         $this->email = strtolower(trim($email));
     }
@@ -74,5 +86,13 @@ class Client {
 
     public function getActive() : int {
         return $this->active;
+    }
+
+    public function setAddress(Address $address) : void {
+        $this->address = $address;
+    }
+
+    public function getAddress() : Address {
+        return $this->address;
     }
 }

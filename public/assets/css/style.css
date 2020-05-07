@@ -81,3 +81,26 @@ body {
     background-color: #2E8B57; 
     border-color: #2E8B57;
 }
+
+/** ===== PERFIL ====== */
+#container-content {
+    max-width: 1024px;
+}
+
+#page-title {
+    font-size: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #2E8B57;
+}
+
+#top-title {
+    padding-top: 10px;
+}
+
+#page-title h2 {
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #2E8B57;
+}

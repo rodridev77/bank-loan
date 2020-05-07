@@ -48,6 +48,7 @@ function signin() {
 
 function signupClient() {
     document.querySelector('#signup-form').addEventListener('submit', event => {
+        console.log(JSON.stringify($('#signup-form').serializeArray()));
         event.preventDefault();
     });
 
@@ -81,6 +82,7 @@ function signupClient() {
             let classAlert = 'alert-warning';
             
             if (data.success === true) {
+                alert("q");
                 message = "registration successful, sign in with cpf and password";
                 classAlert = 'alert-success';
 

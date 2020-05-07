@@ -23,4 +23,15 @@ class ClientController extends Controller {
         $this->loadView($viewPath, $viewName, $data);
     }
 
+    public function perfil()  {
+        $clientDao = new ClientDAO();
+        $viewPath = 'client/';
+        $viewName = "perfil";
+        $data = [];
+
+        $data['client'] = $clientDao->getClient(AuthController::getClientId());
+
+        $this->loadTemplate($viewPath, $viewName, $data);
+    }
+
 }?>

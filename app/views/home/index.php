@@ -35,16 +35,16 @@
                     <form id="signup-form">
                         <div class="form-group">
                             <label for="client-name">Nome</label>
-                            <input type="text" class="form-control" id="client-name" required="required" placeholder="Insira nome">
+                            <input type="text" class="form-control" id="client-name" name="name" required="required" placeholder="Insira nome">
                         </div>
 
                         <div class="form-group">
                             <label for="client-cpf">CPF</label>
-                            <input type="text" class="form-control" id="client-cpf" required="required" placeholder="Insira CPF">
+                            <input type="text" class="form-control" id="client-cpf" name="cpf" required="required" placeholder="Insira CPF">
                         </div>
                         <div class="form-group">
                             <label for="client-pass">Senha</label>
-                            <input type="password" class="form-control" id="client-pass" required="required" placeholder="Insira senha">
+                            <input type="password" class="form-control" id="client-pass" name="pass" required="required" placeholder="Insira senha">
                         </div>
                         
                         <button class="btn submit-account" onclick="signup()">Cadastrar</button>

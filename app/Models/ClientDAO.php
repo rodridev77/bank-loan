@@ -4,6 +4,7 @@ namespace app\Models;
 
 use app\Core\Connection;
 use app\Models\Client;
+use app\Models\Address;
 use \PDOException;
 use \stdClass;
 use \PDO;
@@ -87,7 +88,7 @@ class ClientDAO {
         $client = new Client();
 
         try {
-            $query = "SELECT id, name, surname, cpf, email, active FROM client WHERE id = :id";
+            $query = "SELECT * FROM client WHERE id = :id";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
@@ -95,14 +96,17 @@ class ClientDAO {
             if ($stmt->rowCount() > 0) {
                 $clientObj = new stdClass();
                 $clientObj = $stmt->fetch(PDO::FETCH_OBJ);
+                $stmt->closeCursor();
 
                 $client->setId(intval($clientObj->id));
                 $client->setName($clientObj->name);
                 $client->setSurname($clientObj->surname);
                 $client->setCpf($clientObj->cpf);
+                $client->setPhone($clientObj->phone);
                 $client->setEmail($clientObj->email);
+                $client->setOrdenado(floatval($clientObj->ordenado));
                 $client->setActive(intval($clientObj->active));
-                $stmt->closeCursor();
+                $client->setAddress($this->getAddress(intval($clientObj->id)));
 
                 return $client;
             }
@@ -111,6 +115,38 @@ class ClientDAO {
         }
 
         return $client;
+    }
+
+    public function getAddress(int $id) : Address {
+        $address = new Address();
+
+        try {
+            $query = "SELECT * FROM address WHERE client_id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                $addressObj = new stdClass();
+                $addressObj = $stmt->fetch(PDO::FETCH_OBJ);
+                $stmt->closeCursor();
+
+                $address->setId(intval($addressObj->id));
+                $address->setZipcode($addressObj->zipcode);
+                $address->setStreet($addressObj->street);
+                $address->setNumber($addressObj->number);
+                $address->setOptional($addressObj->optional);
+                $address->setDistrict($addressObj->district);
+                $address->setCity($addressObj->city);
+                $address->setState($addressObj->state);
+                //var_dump($address->getZipcode());die;
+                return $address;
+            }
+        } catch (PDOException $e) {
+            die("Error: " . $e->getMessage());
+        }
+
+        return $address;
     }
 
     public function isActived(int $id) : bool {
