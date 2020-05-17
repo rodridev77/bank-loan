@@ -18,7 +18,7 @@ body {
     font-size: 10pt;
 }
 
-#signin-text .signin-btn, #signin-form .submit-account, #recover-form .submit-account{
+#signin-text .signin-btn, #signin-form .submit-account, #recover-form .submit-account,#change-pass-form .submit-account{
     border-radius: 10px;
     border: 1px solid #fff;
     background-color: #2E8B57;
@@ -35,6 +35,16 @@ body {
     background-color: #2E8B57;
 }
 
+#right-column {
+    border-radius: 20px 0px 0px 20px;
+    background-color: #2E8B57;
+}
+
+#center-column {
+    border-radius: 20px 20px 20px 20px;
+    background-color: #2E8B57;
+}
+
 #create-account {
     padding: 50px 0px 30px 0px;
     text-align: center;
@@ -47,7 +57,7 @@ body {
     color: #fff;
 }
 
-#signup-form, #signin-form, #recover-form {
+#signup-form, #signin-form, #recover-form,#change-pass-form {
     padding: 20px 30px 50px 30px;
     font-weight: 500;
 }
@@ -56,11 +66,11 @@ body {
     margin-top: 100px;
 }
 
-.copyright #copyright-text, #signin-form h2,#recover-form h3 {
+.copyright #copyright-text, #signin-form h2,#recover-form,#change-pass-form h3 {
     text-align: center;
 }
 
-#signin-form,#recover-form {
+#signin-form,#recover-form,#change-pass-form {
     padding: 120px 30px 50px 30px;
     color: #fff;
 }
@@ -70,6 +80,9 @@ body {
         border-radius: 20px 20px 0px 0px;
     }
 
+    #center-column {
+        border-radius: 20px 20px 20px 20px;
+    }
     #left-column {
         border-radius: 0px 0px 20px 20px;
     }

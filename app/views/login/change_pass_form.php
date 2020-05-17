@@ -1,46 +1,70 @@
-<?php 
-
-if (!($_SESSION['token'] == $token)) {
+<?php
+if (!($_SESSION['change_Pass']['token'] == $token)) {
 	header("Location:".BASE_URL);
 }
  ?>
 
-<form action="#" method="post">
-	<div>
-		<label for="name">Text Input:</label>
-		<input type="text" name="name" id="name" value="" tabindex="1" />
-	</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Loan Bank</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?= BASE_URL; ?>/public/assets/css/style.css" type="text/css" >
+    <link rel="stylesheet" href="<?= BASE_URL; ?>/public/assets/css/template.css" type="text/css" >
+</head>
+<body>
 
-	<div>
-		<h4>Radio Button Choice</h4>
+<div class="container-fluid">
+    <div class="row justify-content-center mt-5" id="signin-box">
+        <div class="col-md-3 justify-content-center" id="center-column">
 
-		<label for="radio-choice-1">Choice 1</label>
-		<input type="radio" name="radio-choice-1" id="radio-choice-1" tabindex="2" value="choice-1" />
+            <form id="change-pass-form">
+                <div class="form-group">
+                    <label for="change-pass1">Nova Senha</label>
+                    <input type="password" class="form-control" id="change-pass1" required="required" placeholder="Nova senha" onkeyup="matchPasswd()">
+                </div>
 
-		<label for="radio-choice-2">Choice 2</label>
-		<input type="radio" name="radio-choice-2" id="radio-choice-2" tabindex="3" value="choice-2" />
-	</div>
+                <div class="form-group">
+                    <label for="change-pass2">Repita Novamente</label>
+                    <input type="password" class="form-control" id="change-pass2" required="required" placeholder="Repita novamente" onkeyup="matchPasswd()">
+                </div>
 
-	<div>
-		<label for="select-choice">Select Dropdown Choice:</label>
-		<select name="select-choice" id="select-choice">
-			<option value="Choice 1">Choice 1</option>
-			<option value="Choice 2">Choice 2</option>
-			<option value="Choice 3">Choice 3</option>
-		</select>
-	</div>
-	
-	<div>
-		<label for="textarea">Textarea:</label>
-		<textarea cols="40" rows="8" name="textarea" id="textarea"></textarea>
-	</div>
-	
-	<div>
-		<label for="checkbox">Checkbox:</label>
-		<input type="checkbox" name="checkbox" id="checkbox" />
-	</div>
+                <button type="submit" disabled id="submit_change_pass_form" class="btn submit-account" onclick="changePass()">Mudar Senha</button>
+            </form>
 
-	<div>
-		<input type="submit" value="Submit" />
-	</div>
-</form>
+        </div>
+
+</div>
+
+<footer>
+    <div class="container-fluid">
+
+        <div class="copyright">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="d-flex flex-column" id="copyright-text">
+                        <p>
+                            © <span>Bank Loan</span> Todos os direitos reservados.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script type="text/javascript" src="<?= BASE_URL; ?>/public/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?= BASE_URL; ?>/public/assets/js/script_1.js"></script>
+<script>
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<?php $this->loadView("alerts/", "auth_alert"); ?>
+<?php $this->loadView("alerts/", "signup_alert"); ?>
+</body>
+</html>

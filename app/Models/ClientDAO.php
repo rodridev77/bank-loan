@@ -43,7 +43,7 @@ class ClientDAO {
     public function update(Client $client) : bool {
 
         try {
-            $query = "UPDATE client SET name = :name, surname = :surname, cpf = :cpf, email = :email, 
+            $query = "UPDATE client SET name = :name, surname = :surname, cpf = :cpf, email = :email, pass = :pass,
             ordenado = :ordenado, active = 1 WHERE id = :id";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":id", $client->getId(), PDO::PARAM_INT);
@@ -51,7 +51,8 @@ class ClientDAO {
             $stmt->bindValue(":surname", $client->getSurname(), PDO::PARAM_STR);
             $stmt->bindValue(":cpf", $client->getCpf(), PDO::PARAM_STR);
             $stmt->bindValue(":email", $client->getEmail(), PDO::PARAM_STR);
-            $stmt->bindValue(":ordenado", $client->getOrdenado());
+            $stmt->bindValue(":pass", $client->getPass(), PDO::PARAM_STR);
+            $stmt->bindValue(":ordenado", $client->getOrdenado(),PDO::PARAM_STR);
             
             if ($stmt->execute()) {
                 $stmt->closeCursor();
@@ -64,6 +65,19 @@ class ClientDAO {
 
         return false;
     }
+
+    public function updatePass(Client $client) : bool{
+        $query = "UPDATE client SET pass = :pass WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id",$client->getId(),PDO::PARAM_INT);
+        $stmt->bindValue(":pass",$client->getPass(),PDO::PARAM_STR);
+        if ($stmt->execute()){
+            return true;
+        }
+        return false;
+
+    }
+
 
     public function delete(int $id) : bool {
 
@@ -87,7 +101,7 @@ class ClientDAO {
         $client = new Client();
 
         try {
-            $query = "SELECT id, name, surname, cpf, email, active FROM client WHERE id = :id";
+            $query = "SELECT id, name, surname, cpf, email,ordenado, active FROM client WHERE id = :id";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
@@ -102,6 +116,7 @@ class ClientDAO {
                 $client->setCpf($clientObj->cpf);
                 $client->setEmail($clientObj->email);
                 $client->setActive(intval($clientObj->active));
+                $client->setOrdenado(floatval($clientObj->ordenado));
                 $stmt->closeCursor();
 
                 return $client;
@@ -134,18 +149,18 @@ class ClientDAO {
         return false;
     }
 
-    public function getToken(Client $client) {
+    public function getIdToken(Client $client) {
       
         try{
-            $query = "SELECT token FROM client WHERE cpf=:cpf AND name=:name AND email=:email";
+            $query = "SELECT id,token FROM client WHERE cpf=:cpf AND name=:name AND email=:email";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(':cpf',$client->getCpf(),PDO::PARAM_STR);
             $stmt->bindValue(':name',$client->getName(),PDO::PARAM_STR);
             $stmt->bindValue(':email',$client->getEmail(),PDO::PARAM_STR);
             $stmt->execute();
             if ($stmt->rowCount() > 0) {
-                $token = $stmt->fetch(PDO::FETCH_ASSOC);
-                 return $token;
+                $id_token = $stmt->fetch(PDO::FETCH_ASSOC);
+                 return $id_token;
             }
             return false;
         }catch(PDOException $e){
