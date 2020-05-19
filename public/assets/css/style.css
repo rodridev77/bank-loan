@@ -88,6 +88,22 @@ body {
     }
 }
 
+.forgot{
+    display: block;
+    padding: 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #fff;
+    opacity: 0.9;
+    text-decoration: none;
+}
+
+.forgot:hover, .forgot:active {
+    opacity: 1;
+    text-decoration: none;
+}
+
+
 /** ===== HOME ====== */
 
 .btn-primary.btn-signup {

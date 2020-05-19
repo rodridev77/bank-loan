@@ -7,8 +7,6 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 use app\Models\Client;
 
-//require 'vendor/autoload.php';
-
 class PHPMail
 {
 	private $mail;
@@ -19,21 +17,21 @@ class PHPMail
 		$this->mail = new PHPMailer(true);
 		$this->mail->CharSet = "UTF-8";
 		$this->mail->isSMTP();
-		$this->mail->Host = 'smtp.gmail.com';
+		$this->mail->Host = MAIL['Host'];
 		$this->mail->SMTPAuth = true;
-		$this->mail->SMTPSecure = 'tls';
-		$this->mail->Username = 'bloanprojeto@gmail.com';
-		$this->mail->Password = 'bloan123456';
-		$this->mail->Port = 587;
+		$this->mail->SMTPSecure = MAIL['SMTPSecure'];
+		$this->mail->Username = MAIL['Username'];
+		$this->mail->Password = MAIL['Password'];
+		$this->mail->Port = MAIL['Port'];
 	}
 
 	public function sendEmail($token,Client $client)
 	{
 		try {
 			//Configuração remetente destinatario
-			$email = $client->getEmail();
-			$this->mail->setFrom("bloanprojeto@gmail.com");
-			$this->mail->addAddress($email);
+
+			$this->mail->setFrom(MAIL['Username']);
+			$this->mail->addAddress($client->getEmail());
 
 			//Configuração da mensagem
 			$link = BASE_URL . "/auth/changePassForm/?token=".$token;

@@ -20,23 +20,23 @@ if (!($_SESSION['change_Pass']['token'] == $token)) {
 <div class="container-fluid">
     <div class="row justify-content-center mt-5" id="signin-box">
         <div class="col-md-3 justify-content-center" id="center-column">
+            <div class="d-flex flex-column">
+                <form id="change-pass-form">
+                    <div class="form-group">
+                        <label for="change-pass1">Nova Senha</label>
+                        <input type="password" class="form-control" id="change-pass1" required="required" placeholder="Nova senha" onkeyup="matchPasswd()">
+                    </div>
 
-            <form id="change-pass-form">
-                <div class="form-group">
-                    <label for="change-pass1">Nova Senha</label>
-                    <input type="password" class="form-control" id="change-pass1" required="required" placeholder="Nova senha" onkeyup="matchPasswd()">
-                </div>
+                    <div class="form-group">
+                        <label for="change-pass2">Repita Novamente</label>
+                        <input type="password" class="form-control" id="change-pass2" required="required" placeholder="Repita novamente" onkeyup="matchPasswd()">
+                    </div>
 
-                <div class="form-group">
-                    <label for="change-pass2">Repita Novamente</label>
-                    <input type="password" class="form-control" id="change-pass2" required="required" placeholder="Repita novamente" onkeyup="matchPasswd()">
-                </div>
-
-                <button type="submit" disabled id="submit_change_pass_form" class="btn submit-account" onclick="changePass()">Mudar Senha</button>
-            </form>
-
+                    <button type="submit" disabled id="submit_change_pass_form" class="btn submit-account" onclick="changePass()">Mudar Senha</button>
+                </form>
+            </div>
         </div>
-
+    </div>
 </div>
 
 <footer>
