@@ -102,11 +102,8 @@ class ClientDAO {
         $client = new Client();
 
         try {
-<<<<<<< HEAD
-            $query = "SELECT * FROM client WHERE id = :id";
-=======
-            $query = "SELECT id, name, surname, cpf, email,ordenado, active FROM client WHERE id = :id";
->>>>>>> 439978c95539d0207f935b69a9d667b286d81652
+            $query = "SELECT id, name, surname, cpf, email, ordenado, active FROM client WHERE id = :id";
+
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
@@ -156,7 +153,7 @@ class ClientDAO {
                 $address->setDistrict($addressObj->district);
                 $address->setCity($addressObj->city);
                 $address->setState($addressObj->state);
-                //var_dump($address->getZipcode());die;
+            
                 return $address;
             }
         } catch (PDOException $e) {
