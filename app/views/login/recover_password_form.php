@@ -15,7 +15,7 @@
             <input type="emial" class="form-control" id="recover-email" required="required" placeholder="Insira email">
         </div>
 
-        <button class="btn submit-account" onclick="recover()">Recuperar</button>
+        <button class="btn submit-account" onclick="recoverPassEmail()">Recuperar</button>
         <br>
     </form>
 </div>

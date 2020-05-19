@@ -89,7 +89,7 @@ function signupClient() {
             if (data.success === true) {
                 message = "registration successful, sign in with cpf and password";
                 classAlert = 'alert-success';
-
+                console.log(data)
                 messageAlert(message, modalAlert, classAlert);
             } else {
                 messageAlert(message, modalAlert, classAlert);
@@ -190,7 +190,7 @@ function recover(){
             name:name,
             email:email
         }
-        console.log(data)
+        //console.log(data)
         let options = {
             method: 'POST',
             body: JSON.stringify(data),
@@ -203,6 +203,7 @@ function recover(){
         fetch(URL,options)
         .then(response => response.json())
             .then(data => {
+                console.log(data)
                 let message = "Dados incorretos";
                 let modalAlert = '#signup-alert';
                 let classAlert = 'alert-warning'

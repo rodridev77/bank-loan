@@ -7,6 +7,7 @@ use app\Models\ClientDAO;
 use app\Models\Client;
 use app\Models\Auth;
 use app\PHP_Mailer\PHPMail;
+use PHPMailer\PHPMailer\Exception;
 
 class AuthController extends Controller {
     
@@ -149,7 +150,7 @@ class AuthController extends Controller {
         exit;
     }
 
-    public function recoverPass(){
+    public function recoverPassEmail(){
     
         $form = json_decode(file_get_contents('php://input'), true);
         $cpf = filter_var($form['cpf'],FILTER_SANITIZE_STRING);
@@ -165,12 +166,12 @@ class AuthController extends Controller {
             $client->setEmail($email);
             $clientDAO = new ClientDAO();
             $mail = new PHPMail();
-            $token = $clientDAO->getToken($client);
-            if($token)
+            $id_token = $clientDAO->getIdToken($client);
+            if($id_token)
             {
-                session_start();
-                $_SESSION['token'] = $token['token'];
-                if($mail->sendEmail($token['token'],$client))
+                $_SESSION['change_Pass']['id'] = $id_token['id'];
+                $_SESSION['change_Pass']['token'] = $id_token['token'];
+                if($mail->sendEmail($id_token['token'],$client))
                 {
                     $response['success'] = true;
                 }
@@ -189,5 +190,40 @@ class AuthController extends Controller {
             header("Location:".BASE_URL);
         }
     }
+
+    public function changePass(){
+        if (self::isLogged()):
+            header("Location: " . BASE_URL . "/home");
+        endif;
+
+        try {
+            $response['success'] = false;
+
+            $newPass = json_decode(file_get_contents("php://input"),true);
+
+            $client = new ClientDAO();
+            //tive que fazer um type cast pq a $_SESSION ta passando int como string
+            $clientObj = $client->getClient((int)$_SESSION['change_Pass']['id']);
+
+            $clientObj->setPass($newPass['passwd']);
+
+            if($client->updatePass($clientObj)){
+                $response['success'] = true;
+                session_destroy();
+            }
+
+            echo json_encode($response);
+
+        }catch (\Exception $exception){
+            echo $exception;
+        }
+
+
+
+
+    }
+
 }
+
+
 ?>
