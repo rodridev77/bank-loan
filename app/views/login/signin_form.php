@@ -13,4 +13,5 @@
 
         <button type="submit" class="btn submit-account" onclick="signin()">Entrar</button>
     </form>
+        <button class="btn submit-account" onclick="recoverPassForm()">Recuperar Senha</button>
 </div>

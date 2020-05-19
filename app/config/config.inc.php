@@ -13,7 +13,7 @@ if (ENVIRONMENT == "development") {
 }
 
 // CONFIGURAÇÃO DO BANDO DE DADOS #####################
-define('HOST', 'localhost;port = 3308');
+define('HOST', 'localhost;port = 3306');
 define('DBNAME', 'bank');
 define('USER', 'root');
 define('PASS', '');

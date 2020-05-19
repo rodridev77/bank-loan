@@ -18,7 +18,7 @@ body {
     font-size: 10pt;
 }
 
-#signin-text .signin-btn, #signin-form .submit-account {
+#signin-text .signin-btn, #signin-form .submit-account, #recover-form .submit-account{
     border-radius: 10px;
     border: 1px solid #fff;
     background-color: #2E8B57;
@@ -47,7 +47,7 @@ body {
     color: #fff;
 }
 
-#signup-form, #signin-form {
+#signup-form, #signin-form, #recover-form {
     padding: 20px 30px 50px 30px;
     font-weight: 500;
 }
@@ -56,11 +56,11 @@ body {
     margin-top: 100px;
 }
 
-.copyright #copyright-text, #signin-form h2 {
+.copyright #copyright-text, #signin-form h2,#recover-form h3 {
     text-align: center;
 }
 
-#signin-form {
+#signin-form,#recover-form {
     padding: 120px 30px 50px 30px;
     color: #fff;
 }

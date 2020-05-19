@@ -170,4 +170,23 @@ class ClientDAO {
         return false;
     }
 
+    public function getToken(Client $client) {
+      
+        try{
+            $query = "SELECT token FROM client WHERE cpf=:cpf AND name=:name AND email=:email";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(':cpf',$client->getCpf(),PDO::PARAM_STR);
+            $stmt->bindValue(':name',$client->getName(),PDO::PARAM_STR);
+            $stmt->bindValue(':email',$client->getEmail(),PDO::PARAM_STR);
+            $stmt->execute();
+            if ($stmt->rowCount() > 0) {
+                $token = $stmt->fetch(PDO::FETCH_ASSOC);
+                 return $token;
+            }
+            return false;
+        }catch(PDOException $e){
+            die("Error: ".$e->getMessage);
+        }
+    }
+
 }

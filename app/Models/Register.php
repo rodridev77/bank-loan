@@ -24,7 +24,7 @@ class Register
             if($stmt->execute()){
             	return true;
             }
-    	}catch (PDOException $e) {
+    	}catch (\PDOException $e) {
             die("Error: " . $e->getMessage());
         }
         return false;

@@ -1,18 +1,31 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Versão do servidor: 10.4.11-MariaDB
--- versão do PHP: 7.4.4
+-- Host: localhost:3306
+-- Generation Time: Apr 29, 2020 at 06:28 PM
+-- Server version: 10.3.16-MariaDB
+-- PHP Version: 7.3.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `bank`
+-- Database: `id13334788_bank`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `address`
+-- Table structure for table `address`
 --
 
 CREATE TABLE `address` (
@@ -30,7 +43,7 @@ CREATE TABLE `address` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `bank`
+-- Table structure for table `bank`
 --
 
 CREATE TABLE `bank` (
@@ -42,23 +55,34 @@ CREATE TABLE `bank` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `client`
+-- Table structure for table `client`
 --
 
 CREATE TABLE `client` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `surname` varchar(50) DEFAULT NULL,
+  `name` varchar(50) NOT NULL DEFAULT 'User',
+  `surname` varchar(50) DEFAULT 'Teste',
   `cpf` varchar(11) NOT NULL,
-  `pass` varchar(32) NOT NULL DEFAULT 0,
-  `ordenado` decimal(8,2) UNSIGNED NOT NULL DEFAULT 0,
-  `token` varchar(32) DEFAULT NULL
+  `email` varchar(100) NOT NULL,
+  `pass` varchar(32) NOT NULL,
+  `ordenado` decimal(8,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `token` varchar(32) DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `client`
+--
+
+INSERT INTO `client` (`id`, `name`, `surname`, `cpf`, `email`, `pass`, `ordenado`, `token`, `active`) VALUES
+(3, 'Markus', 'Paulo', '123', 'm7@mail.com', '202cb962ac59075b964b07152d234b70', 60.00, 'd6cb7d1ad2474f8db629e5f25a97137a', 1),
+(4, 'User', 'Teste', '12345678910', 'marcelino@email.com', '25d55ad283aa400af464c76d713c07ad', 0.00, '3559bec4e37803da1c4ad5fd6076c2a1', 0),
+(55, 'User', 'Teste', '1234', 'marcelino@email.com', '202cb962ac59075b964b07152d234b70', 0.00, '8029b6d7fbab8633fb06bd662d81d6ab', 0);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `contact`
+-- Table structure for table `contact`
 --
 
 CREATE TABLE `contact` (
@@ -73,7 +97,7 @@ CREATE TABLE `contact` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `loan`
+-- Table structure for table `loan`
 --
 
 CREATE TABLE `loan` (
@@ -90,7 +114,7 @@ CREATE TABLE `loan` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `log`
+-- Table structure for table `log`
 --
 
 CREATE TABLE `log` (
@@ -104,13 +128,13 @@ CREATE TABLE `log` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `manager`
+-- Table structure for table `manager`
 --
 
 CREATE TABLE `manager` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `surname` varchar(50) NOT NULL,
+  `name` varchar(50) NOT NULL DEFAULT 'User',
+  `surname` varchar(50) NOT NULL DEFAULT 'User',
   `cpf` varchar(11) NOT NULL,
   `pass` varchar(32) NOT NULL,
   `secret_key` varchar(4) NOT NULL,
@@ -120,14 +144,14 @@ CREATE TABLE `manager` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `parcel`
+-- Table structure for table `parcel`
 --
 
 CREATE TABLE `parcel` (
   `id` int(10) UNSIGNED NOT NULL,
   `value` decimal(8,2) UNSIGNED NOT NULL,
   `status` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
-  `delay_cost` decimal(8,2) UNSIGNED NOT NULL DEFAULT 0,
+  `delay_cost` decimal(8,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `due_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `payday` timestamp NOT NULL DEFAULT current_timestamp(),
   `loan_id` int(10) UNSIGNED NOT NULL
@@ -136,7 +160,7 @@ CREATE TABLE `parcel` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `record`
+-- Table structure for table `record`
 --
 
 CREATE TABLE `record` (
@@ -144,3 +168,28 @@ CREATE TABLE `record` (
   `bank_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `client`
+--
+ALTER TABLE `client`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `cpf` (`cpf`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `client`
+--
+ALTER TABLE `client`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

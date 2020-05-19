@@ -51,7 +51,6 @@ function signin() {
 function signupClient() {
 
     document.querySelector('#signup-form').addEventListener('submit', event => {
-        console.log(JSON.stringify($('#signup-form').serializeArray()));
         event.preventDefault();
     });
 
@@ -87,6 +86,7 @@ function signupClient() {
             let classAlert = 'alert-warning';
             
             if (data.success === true) {
+
                 message = "registration successful, sign in with cpf and password";
                 classAlert = 'alert-success';
 
@@ -210,12 +210,12 @@ function recover(){
                     message = "Uma mensagem contendo sua senha será enviado ao email fornecido";
                     classAlert = 'alert-success';
 
-                    messageAlert(data.success, modalAlert, classAlert);
+                    messageAlert(message, modalAlert, classAlert);
 
 
                 } else {
-                    
-                    messageAlert(data.success, modalAlert, classAlert);
+                    console.log(data.success)
+                    messageAlert(message, modalAlert, classAlert);
                 }
             }).catch(error => console.log(error))
     }
