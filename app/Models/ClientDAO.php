@@ -102,7 +102,7 @@ class ClientDAO {
         $client = new Client();
 
         try {
-            $query = "SELECT id, name, surname, cpf, email, ordenado, active FROM client WHERE id = :id";
+            $query = "SELECT id, name, surname, cpf, phone, email, ordenado, active FROM client WHERE id = :id";
 
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":id", $id, PDO::PARAM_INT);
@@ -120,6 +120,7 @@ class ClientDAO {
                 $client->setPhone($clientObj->phone);
                 $client->setEmail($clientObj->email);
                 $client->setOrdenado(floatval($clientObj->ordenado));
+                $client->setAddress($this->getAddress(intval($clientObj->id)));
                 $client->setActive(intval($clientObj->active));
 
                 return $client;
