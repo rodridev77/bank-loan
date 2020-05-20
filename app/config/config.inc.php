@@ -19,3 +19,15 @@ define('USER', 'root');
 define('PASS', '');
 define('DRIVER', 'mysql');
 define('CHARSET', 'utf8');
+
+//Configuração de servidor SMTP GOOGLE
+define("MAIL",[
+    "Host" => 'smtp.gmail.com',
+    "SMTPSecure" => 'tls',
+    "Username" => 'bloanprojeto@gmail.com',
+    "Password" => 'bloan123456',
+    "Port" => 587
+]);
+
+
+
