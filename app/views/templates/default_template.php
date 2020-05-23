@@ -32,7 +32,7 @@
                         <div class="dropdown show">
                             <a class="btn btn-secondary dropdown-toggle" id="btn-logged" href="#" role="button" id="dropdownMenuLink"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <?= $viewData['client']->getName() ?? 'Cliente'; ?>
+                                <?= !empty($viewData['client']->getName()) ? $viewData['client']->getName() : "Cliente"; ?>
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">

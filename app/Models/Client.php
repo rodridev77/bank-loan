@@ -29,7 +29,7 @@ class Client {
     }
 
     public function getName() : string {
-        return $this->name;
+        return $this->name ?? "";
     }
 
     public function setSurname(string $surname) : void {
@@ -37,7 +37,7 @@ class Client {
     }
 
     public function getSurname() : string {
-        return $this->surname;
+        return $this->surname ?? "";
     }
 
     public function setCpf(string $cpf) : void {
@@ -53,7 +53,7 @@ class Client {
     }
 
     public function getPhone() : string {
-        return $this->phone;
+        return $this->phone ?? "";
     }
 
     public function setEmail(string $email) : void {
@@ -77,7 +77,7 @@ class Client {
     }
 
     public function getOrdenado() : float {
-        return $this->ordenado;
+        return $this->ordenado ?? 0;
     }
 
     public function setActive(int $active) : void {
@@ -93,6 +93,6 @@ class Client {
     }
 
     public function getAddress() : Address {
-        return $this->address;
+        return $this->address ?? "";
     }
 }

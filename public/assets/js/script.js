@@ -126,17 +126,35 @@ function signupFullClient() {
     });
     let name = document.querySelector("#signupfull-name").value;
     let surname = document.querySelector("#signupfull-surname").value;
-    let cpf = document.querySelector("#signupfull-cpf").value;
+    let phone = document.querySelector("#signupfull-phone").value;
     let email = document.querySelector("#signupfull-email").value;
+    let cpf = document.querySelector("#signupfull-cpf").value;
     let ordenado = document.querySelector("#signupfull-ordenado").value;
 
-    if ((name.length && surname.length && cpf.length && email.length && ordenado.length) !== 0) {
+    let zipcode = document.querySelector("#signupfull-zipcode").value;
+    let address = document.querySelector("#signupfull-address").value;
+    let number = document.querySelector("#signupfull-number").value;
+    let optional = document.querySelector("#signupfull-optional").value;
+    let district = document.querySelector("#signupfull-district").value;
+    let city = document.querySelector("#signupfull-city").value;
+    let state = document.querySelector("#signupfull-state").value;
+
+    if ((name.length && surname.length && phone.length && email.length && cpf.length && ordenado.length
+         && zipcode && address && district && state && city) !== 0) {
         let data = {
             name: name,
             surname: surname,
-            cpf: cpf,
+            phone: phone,
             email: email,
-            ordenado: ordenado
+            cpf: cpf,
+            ordenado: ordenado,
+            zipcode: zipcode,
+            address: address,
+            number: number,
+            optional: optional,
+            district: district,
+            city: city,
+            state: state
         };
 
         let options = {
@@ -147,7 +165,7 @@ function signupFullClient() {
             }
         };
 
-        const URL = BASE_URL + 'auth/signupFull';
+        const URL = BASE_URL + 'client/signupFull';
         fetch(URL, options).then(response => response.json())
         .then(data => {
             let message = "full registration failed";
@@ -155,11 +173,11 @@ function signupFullClient() {
             let classAlert = 'alert-warning'
             
             if (data.success === true) {
-                message = "full registration successful, sign in with cpf and password";
+                message = "full registration successful";
                 classAlert = 'alert-success';
 
                 messageAlert(message, modalAlert, classAlert);
-    
+
                 window.setTimeout(function() {
                     window.location.href = window.location.href;
                 }, 5000);

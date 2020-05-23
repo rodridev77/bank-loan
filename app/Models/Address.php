@@ -17,7 +17,15 @@ class Address {
     }
     
     public function getId() : int {
-        return $this->id;
+        return $this->id ?? 0;
+    }
+
+    public function setClientId(int $id) : void {
+        $this->clientId = intval(trim($id));
+    }
+    
+    public function getClientId() : int {
+        return $this->clientId ?? 0;
     }
     
     public function setZipcode(string $zipcode) : void {
@@ -25,7 +33,7 @@ class Address {
     }
 
     public function getZipcode() : string {
-        return $this->zipcode;
+        return $this->zipcode ?? "";
     }
 
     public function setStreet(string $street) : void {
@@ -33,7 +41,7 @@ class Address {
     }
 
     public function getStreet() : string {
-        return $this->street;
+        return $this->street ?? "";
     }
 
     public function setNumber(string $number) : void {
@@ -41,7 +49,7 @@ class Address {
     }
 
     public function getNumber() : int {
-        return $this->number;
+        return $this->number ?? 0;
     }
 
     public function setOptional(string $optional) : void {
@@ -49,7 +57,7 @@ class Address {
     }
 
     public function getOptional() : string {
-        return $this->optional;
+        return $this->optional ?? "";
     }
 
     public function setDistrict(string $district) : void {
@@ -57,7 +65,7 @@ class Address {
     }
 
     public function getDistrict() : string {
-        return $this->district;
+        return $this->district ?? "";
     }
 
     public function setCity(string $city) : void {
@@ -65,7 +73,7 @@ class Address {
     }
 
     public function getCity() : string {
-        return $this->city;
+        return $this->city ?? "";
     }
 
     public function setState(string $state) : void {
@@ -73,6 +81,6 @@ class Address {
     }
 
     public function getState() : string {
-        return $this->state;
+        return $this->state ?? "";
     }
 }

@@ -44,19 +44,26 @@ class ClientDAO {
     public function update(Client $client) : bool {
 
         try {
-            $query = "UPDATE client SET name = :name, surname = :surname, cpf = :cpf, email = :email, pass = :pass,
-            ordenado = :ordenado, active = 1 WHERE id = :id";
+            $query = "UPDATE client SET name = :name, surname = :surname, cpf = :cpf, email = :email,
+            ordenado = :ordenado, phone = :phone, active = 1 WHERE id = :id";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":id", $client->getId(), PDO::PARAM_INT);
             $stmt->bindValue(":name", $client->getName(), PDO::PARAM_STR);
             $stmt->bindValue(":surname", $client->getSurname(), PDO::PARAM_STR);
             $stmt->bindValue(":cpf", $client->getCpf(), PDO::PARAM_STR);
             $stmt->bindValue(":email", $client->getEmail(), PDO::PARAM_STR);
-            $stmt->bindValue(":pass", $client->getPass(), PDO::PARAM_STR);
             $stmt->bindValue(":ordenado", $client->getOrdenado(),PDO::PARAM_STR);
+            $stmt->bindValue(":phone", $client->getPhone(),PDO::PARAM_STR);
             
             if ($stmt->execute()) {
                 $stmt->closeCursor();
+                $addressDAO = new AddressDAO();
+
+                if ($client->getAddress()->getId()):
+                    $addressDAO->update($client->getAddress(), $client->getId());
+                else:
+                    $addressDAO->insert($client->getAddress(), $client->getId());
+                endif;
                     
                 return true;
             }
@@ -114,11 +121,11 @@ class ClientDAO {
                 $stmt->closeCursor();
 
                 $client->setId(intval($clientObj->id));
-                $client->setName($clientObj->name);
-                $client->setSurname($clientObj->surname);
+                $client->setName($clientObj->name ?? "");
+                $client->setSurname($clientObj->surname ?? "");
                 $client->setCpf($clientObj->cpf);
-                $client->setPhone($clientObj->phone);
-                $client->setEmail($clientObj->email);
+                $client->setPhone($clientObj->phone ?? "");
+                $client->setEmail($clientObj->email ?? "");
                 $client->setOrdenado(floatval($clientObj->ordenado));
                 $client->setAddress($this->getAddress(intval($clientObj->id)));
                 $client->setActive(intval($clientObj->active));

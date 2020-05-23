@@ -16,11 +16,11 @@ class AddressDAO {
         $this->conn = Connection::connect();
     }
 
-    public function insert(Address $address) : bool {
+    public function insert(Address $address, $clientId) : bool {
 
         try {
-            $query = "INSERT INTO address (zipcode, street, number, optional, district, city, state) VALUES 
-            (:zipcode, :street, :number, :optional, :district, :city, :state)";
+            $query = "INSERT INTO address (zipcode, street, number, optional, district, city, state, client_id) VALUES 
+            (:zipcode, :street, :number, :optional, :district, :city, :state, :client_id)";
 
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":zipcode", $address->getZipcode(), PDO::PARAM_STR);
@@ -30,6 +30,7 @@ class AddressDAO {
             $stmt->bindValue(":district", $address->getDistrict(), PDO::PARAM_STR);
             $stmt->bindValue(":city", $address->getCity(), PDO::PARAM_STR);
             $stmt->bindValue(":state", $address->getState(), PDO::PARAM_STR);
+            $stmt->bindValue(":client_id", $clientId, PDO::PARAM_INT);
 
             if ($stmt->execute()) {
                 $stmt->closeCursor();

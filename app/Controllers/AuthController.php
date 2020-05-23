@@ -3,6 +3,7 @@
 namespace app\Controllers;
 
 use app\Core\Controller;
+use app\Models\Address;
 use app\Models\ClientDAO;
 use app\Models\Client;
 use app\Models\Auth;
@@ -87,44 +88,6 @@ class AuthController extends Controller {
             $client->setPass($pass);
 
             $response["success"] = $clientDAO->insert($client);
-        }
-        
-        echo json_encode($response);
-    }
-
-    public function signupFull() {
-        $clientDAO = new ClientDAO();
-
-        /**if (self::isLogged() && $clientDAO->isActived(self::getClientId())):
-            header("Location: " . BASE_URL . "/home");
-        endif;*/
-        
-        $response["success"] = false;
-        $form = json_decode(file_get_contents('php://input'), true);
-        
-        $_name = ($form['name']) ?? header("Location: " . BASE_URL . "/auth");
-        $_surname = ($form['surname']) ?? header("Location: " . BASE_URL . "/auth");
-        $_cpf = ($form['cpf']) ?? header("Location: " . BASE_URL . "/auth");
-        $_email = ($form['email']) ?? header("Location: " . BASE_URL . "/auth");
-        $_ordenado = ($form['ordenado']) ?? header("Location: " . BASE_URL . "/auth");
-        
-        $name = filter_var($_name, FILTER_SANITIZE_STRING);
-        $surname = filter_var($_surname, FILTER_SANITIZE_STRING);
-        $cpf = filter_var($_cpf, FILTER_SANITIZE_STRING);
-        $email = filter_var($_email, FILTER_SANITIZE_EMAIL);
-        $ordenado = filter_var($_ordenado, FILTER_SANITIZE_STRING);
-
-        if ($name && $surname && $cpf && $email && $ordenado) {
-            $client = new Client();
-
-            $client->setId(self::getClientId());
-            $client->setName($name);
-            $client->setSurname($surname);
-            $client->setCpf($cpf);
-            $client->setEmail($email);
-            $client->setOrdenado(floatval($ordenado));
-
-            $response["success"] = $clientDAO->update($client);
         }
         
         echo json_encode($response);
