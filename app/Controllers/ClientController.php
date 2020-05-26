@@ -44,7 +44,13 @@ class ClientController extends Controller {
         
         $response["success"] = false;
         $form = json_decode(file_get_contents('php://input'), true);
+
+        in_array(null, $form, true) ? header("Location: " . BASE_URL . "/auth") : $form = filter_var_array($form, FILTER_SANITIZE_STRING);
+        extract($form);
+        $email = filter_var($email,FILTER_VALIDATE_EMAIL);
+        $addressId = filter_var($address_id, FILTER_VALIDATE_INT);
         
+        /**
         $_name = ($form['name']) ?? header("Location: " . BASE_URL . "/auth");
         $_surname = ($form['surname']) ?? header("Location: " . BASE_URL . "/auth");
         $_phone = ($form['phone']) ?? header("Location: " . BASE_URL . "/auth");
@@ -58,6 +64,7 @@ class ClientController extends Controller {
         $_district = ($form['district']) ?? header("Location: " . BASE_URL . "/auth");
         $_city = ($form['city']) ?? header("Location: " . BASE_URL . "/auth");
         $_state = ($form['state']) ?? header("Location: " . BASE_URL . "/auth");
+        $_address_id = ($form['address_id']) ?? header("Location: " . BASE_URL . "/auth");
 
         $name = filter_var($_name, FILTER_SANITIZE_STRING);
         $surname = filter_var($_surname, FILTER_SANITIZE_STRING);
@@ -73,6 +80,8 @@ class ClientController extends Controller {
         $district = filter_var($_district, FILTER_SANITIZE_STRING);
         $city = filter_var($_city, FILTER_SANITIZE_STRING);
         $state = filter_var($_state, FILTER_SANITIZE_STRING);
+        $address_id = filter_var($_address_id, FILTER_VALIDATE_INT);
+        */
 
         if ($name && $surname && $phone && $email && $cpf && $ordenado
             && $zipcode && $address && $number && $district && $city && $state) {
@@ -94,6 +103,7 @@ class ClientController extends Controller {
             $clientAddress->setDistrict($district);
             $clientAddress->setCity($city);
             $clientAddress->setState($state);
+            $clientAddress->setClientId($addressId);
 
             $client->setAddress($clientAddress);
 

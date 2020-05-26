@@ -4,6 +4,7 @@ namespace app\Models;
 
 class Address {
     private int $id;
+    private int $clientId;
     private string $zipcode;
     private string $street;
     private int $number;

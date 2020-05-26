@@ -59,7 +59,7 @@ class ClientDAO {
                 $stmt->closeCursor();
                 $addressDAO = new AddressDAO();
 
-                if ($client->getAddress()->getId()):
+                if ($client->getAddress()->getClientId() !== 0):
                     $addressDAO->update($client->getAddress(), $client->getId());
                 else:
                     $addressDAO->insert($client->getAddress(), $client->getId());
@@ -154,6 +154,7 @@ class ClientDAO {
                 $stmt->closeCursor();
 
                 $address->setId(intval($addressObj->id));
+                $address->setClientId(intval($addressObj->client_id));
                 $address->setZipcode($addressObj->zipcode);
                 $address->setStreet($addressObj->street);
                 $address->setNumber($addressObj->number);

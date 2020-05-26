@@ -93,6 +93,6 @@ class Client {
     }
 
     public function getAddress() : Address {
-        return $this->address ?? "";
+        return $this->address ?? new Address;
     }
 }
