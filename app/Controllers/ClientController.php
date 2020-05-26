@@ -50,39 +50,6 @@ class ClientController extends Controller {
         $email = filter_var($email,FILTER_VALIDATE_EMAIL);
         $addressId = filter_var($address_id, FILTER_VALIDATE_INT);
         
-        /**
-        $_name = ($form['name']) ?? header("Location: " . BASE_URL . "/auth");
-        $_surname = ($form['surname']) ?? header("Location: " . BASE_URL . "/auth");
-        $_phone = ($form['phone']) ?? header("Location: " . BASE_URL . "/auth");
-        $_email = ($form['email']) ?? header("Location: " . BASE_URL . "/auth");
-        $_cpf = ($form['cpf']) ?? header("Location: " . BASE_URL . "/auth");
-        $_ordenado = ($form['ordenado']) ?? header("Location: " . BASE_URL . "/auth");
-
-        $_zipcode = ($form['zipcode']) ?? header("Location: " . BASE_URL . "/auth");
-        $_address = ($form['address']) ?? header("Location: " . BASE_URL . "/auth");
-        $_number = ($form['number']) ?? header("Location: " . BASE_URL . "/auth");
-        $_district = ($form['district']) ?? header("Location: " . BASE_URL . "/auth");
-        $_city = ($form['city']) ?? header("Location: " . BASE_URL . "/auth");
-        $_state = ($form['state']) ?? header("Location: " . BASE_URL . "/auth");
-        $_address_id = ($form['address_id']) ?? header("Location: " . BASE_URL . "/auth");
-
-        $name = filter_var($_name, FILTER_SANITIZE_STRING);
-        $surname = filter_var($_surname, FILTER_SANITIZE_STRING);
-        $phone = filter_var($_phone, FILTER_SANITIZE_STRING);
-        $email = filter_var($_email, FILTER_VALIDATE_EMAIL);
-        $cpf = filter_var($_cpf, FILTER_SANITIZE_STRING);
-        $ordenado = filter_var($_ordenado, FILTER_SANITIZE_STRING);
-
-        $zipcode = filter_var($_zipcode, FILTER_SANITIZE_STRING);
-        $address = filter_var($_address, FILTER_SANITIZE_STRING);
-        $number = filter_var($_number, FILTER_SANITIZE_STRING);
-        $optional = filter_var($form['optional']);
-        $district = filter_var($_district, FILTER_SANITIZE_STRING);
-        $city = filter_var($_city, FILTER_SANITIZE_STRING);
-        $state = filter_var($_state, FILTER_SANITIZE_STRING);
-        $address_id = filter_var($_address_id, FILTER_VALIDATE_INT);
-        */
-
         if ($name && $surname && $phone && $email && $cpf && $ordenado
             && $zipcode && $address && $number && $district && $city && $state) {
             $client = new Client();
