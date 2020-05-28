@@ -25,21 +25,19 @@ class PHPMail
 		$this->mail->Port = MAIL['Port'];
 	}
 
-	public function sendEmail($token,Client $client)
+	public function sendEmail($email,$subject,$body)
 	{
 		try {
 			//Configuração remetente destinatario
 
 			$this->mail->setFrom(MAIL['Username']);
-			$this->mail->addAddress($client->getEmail());
+			$this->mail->addAddress($email);
 
 			//Configuração da mensagem
-			$link = BASE_URL . "/auth/changePassForm/?token=".$token;
 			$this->mail->isHTML(true);
-			$name = $client->getName();
-			$this->mail->Subject = 'Alteração de Senha Bank-Loan';
-			$this->mail->Body    = "$name acesse o link para alteração de senha : $link";
-			$this->mail->AltBody = "acesse o link para alteração de senha : $link";
+			$this->mail->Subject = $subject;
+			$this->mail->Body    = $body;
+
 			if ($this->mail->send()) {
 				return true;
 			}

@@ -73,7 +73,7 @@
         </footer>
 
         <script type="text/javascript" src="<?= BASE_URL; ?>/public/assets/js/jquery.min.js"></script>
-        <script type="text/javascript" src="<?= BASE_URL; ?>/public/assets/js/script_1.js"></script>
+        <script type="text/javascript" src="<?= BASE_URL; ?>/public/assets/js/script.js"></script>
     <script>
 
     </script>

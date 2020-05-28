@@ -3,8 +3,8 @@ const BASE_URL = "http://localhost/bank-loan/";
 function signinForm() {
     $("#right-column").load(BASE_URL+"app/views/login/signin_form.php");
 }
-function recoverPassForm (){
-    $("#right-column").load(BASE_URL+"app/views/login/recover_password_form.php");
+function forgotPassForm (){
+    $("#right-column").load(BASE_URL+"app/views/login/forgot_password_form_email.php");
 }
 function signin() {
     document.querySelector('#signin-form').addEventListener('submit', event => {
@@ -194,12 +194,11 @@ function signupFullClient() {
     }
 }
 
-
-function recover(){
+function forgotPassEmail(){
 
     document.querySelector('#recover-form').addEventListener('submit',event => {
         event.preventDefault()
-    })    
+    })
     let cpf = document.querySelector("#recover-cpf").value
     let name = document.querySelector("#recover-name").value
     let email = document.querySelector("#recover-email").value
@@ -219,26 +218,158 @@ function recover(){
             }
 
         }
-        const URL = BASE_URL+"auth/recoverPass";
+        const URL = BASE_URL+"Passwd/forgotPassEmail";
         fetch(URL,options)
-        .then(response => response.json())
+            .then(response => response.json())
             .then(data => {
                 console.log(data)
                 let message = "Dados incorretos";
                 let modalAlert = '#signup-alert';
                 let classAlert = 'alert-warning'
                 if (data.success === true) {
+
                     message = "Uma mensagem contendo sua senha será enviado ao email fornecido";
                     classAlert = 'alert-success';
-
-                    messageAlert(data.success, modalAlert, classAlert);
-
+                    messageAlert(message, modalAlert, classAlert);
 
                 } else {
-                    
-                    messageAlert(data.success, modalAlert, classAlert);
+                    messageAlert(message, modalAlert, classAlert);
                 }
             }).catch(error => console.log(error))
     }
 }
 
+function matchPasswd() {
+    let passwd1 = document.querySelector("#change-pass1").value
+    let passwd2 = document.querySelector("#change-pass2").value
+    let submit = document.querySelector("#submit_change_pass_form")
+    if (passwd1!=="" && passwd2!==""){
+        if (passwd1===passwd2){
+            submit.removeAttribute("disabled")
+        }else{
+            submit.disabled = true;
+        }
+    }
+
+
+}
+
+function changeForgottenPass() {
+
+    document.querySelector('#change-pass-form').addEventListener('submit',event => {
+        event.preventDefault()
+    })
+
+    let passwd1 = document.querySelector("#change-pass1").value
+
+    let data = {
+        passwd : passwd1
+    }
+
+    console.log(data)
+
+    let options = {
+        method : "POST",
+        body : JSON.stringify(data),
+        headers : {
+            "Content-Type" : "application-json"
+        }
+    }
+
+    fetch(BASE_URL+"/Passwd/passwordReset",options)
+        .then(response => response.json())
+        .then(data => {
+            //console.log(data.success)
+            if (data.success){
+                window.location = BASE_URL;
+            }else{
+                let message = "Ocorreu um problema durante a requisição tente novamente";
+                let modalAlert = '#auth-alert';
+                let classAlert = 'alert-warning'
+
+                messageAlert(message, modalAlert, classAlert);
+            }
+
+
+        })
+
+
+}
+
+function getCode() {
+    // document.querySelector("#getCode").addEventListener("submit", event => {
+    //     event.preventDefault()
+    // })
+
+    fetch(BASE_URL+"/Passwd/getCodeEmail",{
+        method : "POST"
+    }).then(response => response.json())
+        .then(data => {
+            let message = "Ocorreu um erro durante o processo tente novamente mais tarde";
+            let modalAlert = '#signup-alert';
+            let classAlert = 'alert-warning'
+
+            if (data.success === true) {
+                message = "Uma mensagem foi enviada ao seu email contendo o código gerado";
+                classAlert = 'alert-success';
+
+                messageAlert(message, modalAlert, classAlert);
+
+                window.setTimeout(function() {
+                    window.location.href = window.location.href;
+                }, 5000);
+
+            } else {
+                messageAlert(message, modalAlert, classAlert);
+            }
+        })
+
+}
+
+function changeOldPass(){
+    document.querySelector("#changeOldPassForm").addEventListener("submit", event =>{
+        event.preventDefault()
+    })
+
+    let code =  document.querySelector("#change-code").value
+    let newPass =  document.querySelector("#change-pass1").value
+    let oldPass =  document.querySelector("#change-oldPass").value
+    
+    let data = {
+        code : code,
+        newPass : newPass,
+        oldPass : oldPass
+    }
+
+    let options = {
+        method : "POST",
+        body : JSON.stringify(data),
+        headers : {
+            "Content-Type" : "application-json"
+        }
+    }
+
+    fetch(BASE_URL+"/Passwd/changeOldPass",options)
+    .then(response => response.json())
+    .then(data => {
+        let message = "Os dados informados estão incorretos, ou o código não foi gerado corretamente";
+            let modalAlert = '#signup-alert';
+            let classAlert = 'alert-warning'
+
+            if (data.success === true) {
+                message = "Sua Senha foi alterada!";
+                classAlert = 'alert-success';
+
+                messageAlert(message, modalAlert, classAlert);
+
+                window.setTimeout(function() {
+                    window.location.href = window.location.href;
+                }, 5000);
+
+            } else {
+                messageAlert(message, modalAlert, classAlert);
+            }
+    }).catch(error => {
+        console.log(error)
+    })
+}

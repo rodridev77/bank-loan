@@ -86,7 +86,6 @@ class ClientDAO {
 
     }
 
-
     public function delete(int $id) : bool {
 
         try {
@@ -137,6 +136,16 @@ class ClientDAO {
         }
 
         return $client;
+    }
+
+    public function getPassById($id){
+        $query = "SELECT pass From client WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id",$id,PDO::PARAM_INT);
+        if ($stmt->execute()){
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        return false;
     }
 
     public function getAddress(int $id) : Address {
