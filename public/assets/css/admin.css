@@ -1,0 +1,31 @@
+/** ===== SIGNIN ====== */
+.login-logo a {
+    color: #2E8B57;
+}
+
+.login-box-msg {
+    color: #2E8B57;
+}
+
+.login-card-body .input-group .input-group-text, 
+.register-card-body .input-group .input-group-text {
+    color: #2E8B57;
+}
+
+.admin-auth-btn {
+    background-color: #2E8B57;
+    border-color: #2E8B57;
+}
+
+.admin-auth-btn:hover {
+    background-color: #2E8B57;
+    border-color: #2E5B57;
+}
+
+.recovery-pass-text {
+    color: #2E8B57;
+}
+
+.recovery-pass-text:hover {
+    color: #2E5B57;
+}

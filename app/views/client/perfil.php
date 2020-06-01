@@ -97,6 +97,7 @@
                     placeholder="Insira Estado">
             </div>
         </div>
+        <input type="hidden" id="signupfull-address_id" value="<?= $client->getAddress()->getId(); ?>">
 
         <button type="submit" class="btn btn-lg submit-account" onclick="signupFullClient()">Salvar</button>
     </form>

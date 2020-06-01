@@ -19,7 +19,7 @@ class AddressDAO {
     public function insert(Address $address, $clientId) : bool {
 
         try {
-            $query = "INSERT INTO address (zipcode, street, number, optional, district, city, state, client_id) VALUES 
+            $query = "INSERT address (zipcode, street, number, optional, district, city, state, client_id) VALUES 
             (:zipcode, :street, :number, :optional, :district, :city, :state, :client_id)";
 
             $stmt = $this->conn->prepare($query);
@@ -44,11 +44,11 @@ class AddressDAO {
         return false;
     }
 
-    public function update(Address $address, $id) : bool {
+    public function update(Address $address, $clientId) : bool {
 
         try {
-            $query = "UPDATE SET address zipcode = :zipcode, street = :street, number = :number, 
-            optional = :optional, district = :district, city = :city, state = :state WHERE client_id = :id";
+            $query = "UPDATE address SET zipcode = :zipcode, street = :street, number = :number, 
+            optional = :optional, district = :district, city = :city, state = :state WHERE client_id = :client_id";
 
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":zipcode", $address->getZipcode(), PDO::PARAM_STR);
@@ -58,7 +58,7 @@ class AddressDAO {
             $stmt->bindValue(":district", $address->getDistrict(), PDO::PARAM_STR);
             $stmt->bindValue(":city", $address->getCity(), PDO::PARAM_STR);
             $stmt->bindValue(":state", $address->getState(), PDO::PARAM_STR);
-            $stmt->bindValue(":state", $id, PDO::PARAM_INT);
+            $stmt->bindValue(":client_id", $clientId, PDO::PARAM_INT);
 
             if ($stmt->execute()) {
                 $stmt->closeCursor();

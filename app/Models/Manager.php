@@ -4,16 +4,14 @@ namespace app\Models;
 
 use app\Models\Address;
 
-class Client {
+class Manager {
     private int $id;
     private string $name;
     private string $surname;
     private string $cpf;
-    private string $phone;
     private string $email;
     private string $pass;
-    private float $ordenado;
-    private int $active;
+    private string $secretKey;
     private ?Address $address;
 
     public function setId(int $id) : void {
@@ -48,14 +46,6 @@ class Client {
         return $this->cpf;
     }
 
-    public function setPhone(string $phone) : void {
-        $this->phone = trim($phone);
-    }
-
-    public function getPhone() : string {
-        return $this->phone ?? "";
-    }
-
     public function setEmail(string $email) : void {
         $this->email = strtolower(trim($email));
     }
@@ -72,20 +62,12 @@ class Client {
         return $this->pass;
     }
 
-    public function setOrdenado(float $ordenado) : void {
-        $this->ordenado = trim($ordenado);
+    public function setSecretKey(int $secretKey) : void {
+        $this->secretKey = trim($secretKey);
     }
 
-    public function getOrdenado() : float {
-        return $this->ordenado ?? 0;
-    }
-
-    public function setActive(int $active) : void {
-        $this->active = trim($active);
-    }
-
-    public function getActive() : int {
-        return $this->active;
+    public function getSecretKey() : string {
+        return $this->secretKey;
     }
 
     public function setAddress(Address $address) : void {

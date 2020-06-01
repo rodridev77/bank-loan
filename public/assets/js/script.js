@@ -138,9 +138,10 @@ function signupFullClient() {
     let district = document.querySelector("#signupfull-district").value;
     let city = document.querySelector("#signupfull-city").value;
     let state = document.querySelector("#signupfull-state").value;
+    let address_id = document.querySelector("#signupfull-address_id").value;
 
     if ((name.length && surname.length && phone.length && email.length && cpf.length && ordenado.length
-         && zipcode && address && district && state && city) !== 0) {
+         && zipcode && address && district && state && city && address_id) !== 0) {
         let data = {
             name: name,
             surname: surname,
@@ -154,7 +155,8 @@ function signupFullClient() {
             optional: optional,
             district: district,
             city: city,
-            state: state
+            state: state,
+            address_id: address_id
         };
 
         let options = {

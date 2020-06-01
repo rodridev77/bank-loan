@@ -17,6 +17,11 @@ class Controller
         require_once "app/views/templates/default_template.php";
     }
 
+    public function loadAdminTemplate($viewPath, $viewName, $viewData = array())
+    {
+        require_once "app/views/templates/admin_template.php";
+    }
+
     public function loadViewInTemplate($viewPath, $viewName, $viewData = array())
     {
         extract($viewData);
