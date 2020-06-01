@@ -13,5 +13,5 @@
 
         <button type="submit" class="btn submit-account" onclick="signin()">Entrar</button>
     </form>
-        <a href="#" class="forgot" onclick="recoverPassForm()">Esqueci minha senha</a>
+        <a href="#" class="forgot" onclick="forgotPassForm()">Esqueci minha senha</a>
 </div>

@@ -37,7 +37,7 @@
 
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" href="<?php echo BASE_URL; ?>/client/perfil">Meu Cadastro</a>
-                                <a class="dropdown-item" href="#">Alterar Senha</a>
+                                <a class="dropdown-item" href="<?php echo BASE_URL; ?>/passwd/changePassForm"">Alterar Senha</a>
                                 <a class="dropdown-item" href="<?php echo BASE_URL; ?>/auth/signout">Sair</a>
                             </div>
                         </div>

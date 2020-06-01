@@ -4,7 +4,7 @@ function signinForm() {
     $("#right-column").load(BASE_URL+"app/views/login/signin_form.php");
 }
 function recoverPassForm (){
-    $("#right-column").load(BASE_URL+"app/views/login/recover_password_form.php");
+    $("#right-column").load(BASE_URL+"app/views/login/forgot_password_form_email.php");
 }
 function signin() {
     document.querySelector('#signin-form').addEventListener('submit', event => {
@@ -174,105 +174,5 @@ function signupFullClient() {
     }
 }
 
-function recoverPassEmail(){
 
-    document.querySelector('#recover-form').addEventListener('submit',event => {
-        event.preventDefault()
-    })    
-    let cpf = document.querySelector("#recover-cpf").value
-    let name = document.querySelector("#recover-name").value
-    let email = document.querySelector("#recover-email").value
-
-    if ((cpf.length && name.length && email.length) !== 0){
-        let data = {
-            cpf:cpf,
-            name:name,
-            email:email
-        }
-        //console.log(data)
-        let options = {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-
-        }
-        const URL = BASE_URL+"auth/recoverPassEmail";
-        fetch(URL,options)
-        .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                let message = "Dados incorretos";
-                let modalAlert = '#signup-alert';
-                let classAlert = 'alert-warning'
-                if (data.success === true) {
-                    
-                    message = "Uma mensagem contendo sua senha será enviado ao email fornecido";
-                    classAlert = 'alert-success';
-                    messageAlert(message, modalAlert, classAlert);
-
-                } else {
-                    messageAlert(message, modalAlert, classAlert);
-                }
-            }).catch(error => console.log(error))
-    }
-}
-
-function matchPasswd() {
-    let passwd1 = document.querySelector("#change-pass1").value
-    let passwd2 = document.querySelector("#change-pass2").value
-    let submit = document.querySelector("#submit_change_pass_form")
-    if (passwd1!=="" && passwd2!==""){
-        if (passwd1===passwd2){
-            submit.removeAttribute("disabled")
-        }else{
-            submit.disabled = true;
-        }
-    }
-
-
-}
-
-function changePass() {
-
-    document.querySelector('#change-pass-form').addEventListener('submit',event => {
-        event.preventDefault()
-    })
-
-    let passwd1 = document.querySelector("#change-pass1").value
-
-    let data = {
-        passwd : passwd1
-    }
-
-    console.log(data)
-
-    let options = {
-        method : "POST",
-        body : JSON.stringify(data),
-        headers : {
-            "Content-Type" : "application-json"
-        }
-    }
-
-    fetch(BASE_URL+"/auth/changePass",options)
-        .then(response => response.json())
-        .then(data => {
-            //console.log(data.success)
-            if (data.success){
-                window.location = BASE_URL;
-            }else{
-                let message = "Ocorreu um problema durante a requisição tente novamente";
-                let modalAlert = '#auth-alert';
-                let classAlert = 'alert-warning'
-
-                messageAlert(message, modalAlert, classAlert);
-            }
-
-
-        })
-
-
-}
 

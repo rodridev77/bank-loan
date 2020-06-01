@@ -16,7 +16,6 @@ if (!($_SESSION['change_Pass']['token'] == $token)) {
     <link rel="stylesheet" href="<?= BASE_URL; ?>/public/assets/css/template.css" type="text/css" >
 </head>
 <body>
-
 <div class="container-fluid">
     <div class="row justify-content-center mt-5" id="signin-box">
         <div class="col-md-3 justify-content-center" id="center-column">
@@ -32,7 +31,7 @@ if (!($_SESSION['change_Pass']['token'] == $token)) {
                         <input type="password" class="form-control" id="change-pass2" required="required" placeholder="Repita novamente" onkeyup="matchPasswd()">
                     </div>
 
-                    <button type="submit" disabled id="submit_change_pass_form" class="btn submit-account" onclick="changePass()">Mudar Senha</button>
+                    <button type="submit" disabled id="submit_change_pass_form" class="btn submit-account" onclick="changeForgottenPass()">Mudar Senha</button>
                 </form>
             </div>
         </div>
@@ -57,7 +56,7 @@ if (!($_SESSION['change_Pass']['token'] == $token)) {
 </footer>
 
 <script type="text/javascript" src="<?= BASE_URL; ?>/public/assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="<?= BASE_URL; ?>/public/assets/js/script_1.js"></script>
+<script type="text/javascript" src="<?= BASE_URL; ?>/public/assets/js/script.js"></script>
 <script>
 
 </script>
