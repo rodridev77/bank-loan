@@ -16,11 +16,14 @@ class AddressDAO {
         $this->conn = Connection::connect();
     }
 
-    public function insert(Address $address, $clientId) : bool {
+    public function insert(Address $address, $fkey) : bool {
+        $fkeyIndex = array_keys($fkey);
+        $fkeyValue = array_values($fkey);
+        //".':'.$fkeyIndex[0]."
 
         try {
-            $query = "INSERT address (zipcode, street, number, optional, district, city, state, client_id) VALUES 
-            (:zipcode, :street, :number, :optional, :district, :city, :state, :client_id)";
+            $query = "INSERT address (zipcode, street, number, optional, district, city, state, $fkeyIndex[0]) VALUES 
+            (:zipcode, :street, :number, :optional, :district, :city, :state, :".$fkeyIndex[0].")";
 
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":zipcode", $address->getZipcode(), PDO::PARAM_STR);
@@ -30,7 +33,7 @@ class AddressDAO {
             $stmt->bindValue(":district", $address->getDistrict(), PDO::PARAM_STR);
             $stmt->bindValue(":city", $address->getCity(), PDO::PARAM_STR);
             $stmt->bindValue(":state", $address->getState(), PDO::PARAM_STR);
-            $stmt->bindValue(":client_id", $clientId, PDO::PARAM_INT);
+            $stmt->bindValue(":$fkeyIndex[0]", $fkeyValue[0], PDO::PARAM_INT);
 
             if ($stmt->execute()) {
                 $stmt->closeCursor();
@@ -44,11 +47,13 @@ class AddressDAO {
         return false;
     }
 
-    public function update(Address $address, $clientId) : bool {
+    public function update(Address $address, $fkey) : bool {
+        $fkeyIndex = array_keys($fkey);
+        $fkeyValue = array_values($fkey);
 
         try {
             $query = "UPDATE address SET zipcode = :zipcode, street = :street, number = :number, 
-            optional = :optional, district = :district, city = :city, state = :state WHERE client_id = :client_id";
+            optional = :optional, district = :district, city = :city, state = :state WHERE $fkeyIndex[0] = :".$fkeyIndex[0];
 
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":zipcode", $address->getZipcode(), PDO::PARAM_STR);
@@ -58,7 +63,7 @@ class AddressDAO {
             $stmt->bindValue(":district", $address->getDistrict(), PDO::PARAM_STR);
             $stmt->bindValue(":city", $address->getCity(), PDO::PARAM_STR);
             $stmt->bindValue(":state", $address->getState(), PDO::PARAM_STR);
-            $stmt->bindValue(":client_id", $clientId, PDO::PARAM_INT);
+            $stmt->bindValue(":$fkeyIndex[0]", $fkeyValue[0], PDO::PARAM_INT);
 
             if ($stmt->execute()) {
                 $stmt->closeCursor();
@@ -72,12 +77,14 @@ class AddressDAO {
         return false;
     }
 
-    public function delete(int $id) : bool {
+    public function delete($fkey) : bool {
+        $fkeyIndex = array_keys($fkey);
+        $fkeyValue = array_values($fkey);
 
         try {
-            $query = "DELETE FROM address WHERE client_id = :id";
+            $query = "DELETE FROM address WHERE $fkeyIndex[0] = :".$fkeyIndex[0];
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+            $stmt->bindValue(":$fkeyIndex[0]", $fkeyValue[0], PDO::PARAM_INT);
 
             if ($stmt->execute()) {
                 $stmt->closeCursor();

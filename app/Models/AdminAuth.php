@@ -7,7 +7,7 @@ use \PDO;
 use \PDOException;
 
 class AdminAuth {
-    private int $id;
+    private int $bankId;
     private string $token;
     private ?PDO $conn;
 
@@ -18,21 +18,21 @@ class AdminAuth {
     public function validateAuth(Manager $manager) : bool {
 
         try {
-            $query = "SELECT id FROM manager WHERE cpf = :cpf AND pass = :pass";
+            $query = "SELECT bank_id FROM manager WHERE cpf = :cpf AND pass = :pass";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":cpf", $manager->getCpf(), PDO::PARAM_STR);
             $stmt->bindValue(":pass", $manager->getPass(), PDO::PARAM_STR);
             $stmt->execute();
 
             if ($stmt->rowCount() > 0) {
-                $this->id = intval($stmt->fetch(PDO::FETCH_OBJ)->id);
+                $this->bankId = intval($stmt->fetch(PDO::FETCH_OBJ)->bank_id);
                 $stmt->closeCursor();
 
-                /**if ($this->setToken($this->id)):
+                if ($this->setToken($this->bankId)):
                     return true;
-                endif;*/
-                
-                return true;
+                endif;
+
+                return false;
             }
         } catch (PDOException $e) {
             die("Error: " . $e->getMessage());
@@ -41,7 +41,7 @@ class AdminAuth {
         return false;
     }
 
-    /**public function setToken(int $id) : bool {
+    public function setToken(int $id) : bool {
         try {
 
             $this->token = md5(time() . rand(0, 99999) . $id);
@@ -62,12 +62,12 @@ class AdminAuth {
         return false;
     }
     
-    public function getId() : int {
-        return $this->id;
+    public function getManageBankId() : int {
+        return $this->bankId;
     }
     
-    public function getToken() : string {
+    public function getManageToken() : string {
         return $this->token;
-    }*/
+    }
 
 }

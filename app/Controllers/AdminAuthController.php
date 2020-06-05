@@ -25,7 +25,7 @@ class AdminAuthController extends Controller {
         $cpf = filter_var($form['cpf'], FILTER_SANITIZE_STRING);
         $pass = filter_var($form['pass'], FILTER_SANITIZE_STRING);
 
-        $data = ['success' => false];
+        $response = ['success' => false];
 
         if ($cpf && $pass) {
             $manager = new Manager();
@@ -34,15 +34,35 @@ class AdminAuthController extends Controller {
             $manager->setCpf($cpf);
             $manager->setPass($pass);
 
-            $data['success'] = $adminAuth->validateAuth($manager);
+            $response['success'] = $adminAuth->validateAuth($manager);
+
+            if ($response["success"] === true):
+                $_SESSION['manager'] = [];
+                $_SESSION['manager']['token'] = $adminAuth->getManageToken();
+                $_SESSION['manager']['bank_id'] = $adminAuth->getManageBankId();
+            endif;
         }
 
-        echo json_encode($data);
+        echo json_encode($response);
     }
 
-    public function logout() {
-        unset($_SESSION['user_token']);
-        header("Location:" . BASE_URL . "auth");
+    public static function isLogged() : bool {
+
+        if (isset($_SESSION['manager']['token']) && !empty($_SESSION['manager']['token'])):
+            return true;
+        else:
+            return false;
+        endif;
+    }
+
+    public static function getManageBankId() : int {
+        
+        return ($_SESSION['manager']['bank_id']) ?? 0;
+    }
+
+    public function signout() {
+        unset($_SESSION['manager']);
+        header("Location:" . BASE_URL . "/adminAuth");
         exit;
     }
 }

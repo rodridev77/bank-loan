@@ -45,7 +45,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sair</a>
+                        <a class="nav-link" href="<?php echo BASE_URL ?>/adminAuth/signout">Sair</a>
                     </li>
                 </ul>
             </nav>
@@ -78,7 +78,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <!-- Add icons to the links using the .nav-icon class
                                  with font-awesome or any other icon font library -->
                             <li class="nav-item has-treeview menu-open">
-                                <a href="#" class="nav-link active">
+                                <a href="#" class="nav-link active" id="personal">
 
                                     <p>
                                         Menu
@@ -87,25 +87,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="<?php echo BASE_URL ?>home" class="nav-link active">
+                                        <a href="<?php echo BASE_URL ?>/adminhome" class="nav-link active ">
                                             <p>Início</p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?php echo BASE_URL ?>banks" class="nav-link active">
-                                            <p>Banks</p>
+                                        <a href="<?php echo BASE_URL ?>/bank" class="nav-link active">
+                                            <p>Bank</p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?php echo BASE_URL ?>staff" class="nav-link active">
+                                        <a href="<?php echo BASE_URL ?>/staff" class="nav-link active">
                                             <p>Staffs</p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?php echo BASE_URL ?>role" class="nav-link active">
+                                        <a href="<?php echo BASE_URL ?>/role" class="nav-link active">
                                             <p>Roles</p>
                                         </a>
                                     </li>
@@ -142,11 +142,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- REQUIRED SCRIPTS -->
 
         <!-- jQuery -->
-        <script src="<?php echo BASE_URL ?>/app/views/templates/adminlte/plugins/jquery/jquery.min.js"></script>
+        <script src="<?= BASE_URL ?>/app/views/templates/adminlte/plugins/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="<?= BASE_URL; ?>/public/assets/js/jquery.min.js"></script>
         <!-- Bootstrap 4 -->
-        <script src="<?php echo BASE_URL ?>/app/views/templates/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="<?= BASE_URL ?>/app/views/templates/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- AdminLTE App -->
-        <script src="<?php echo BASE_URL ?>/app/views/templates/adminlte/dist/js/adminlte.min.js"></script>
+        <script src="<?= BASE_URL ?>/app/views/templates/adminlte/dist/js/adminlte.min.js"></script>
+
+        <script type="text/javascript" src="<?= BASE_URL; ?>/public/assets/js/admin.js"></script>
 
     </body>
 </html>

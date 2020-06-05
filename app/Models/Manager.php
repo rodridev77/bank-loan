@@ -12,6 +12,7 @@ class Manager {
     private string $email;
     private string $pass;
     private string $secretKey;
+    private string $token;
     private ?Address $address;
 
     public function setId(int $id) : void {
@@ -68,6 +69,10 @@ class Manager {
 
     public function getSecretKey() : string {
         return $this->secretKey;
+    }
+
+    public function getToken() : string {
+        return $this->token ?? "";
     }
 
     public function setAddress(Address $address) : void {
