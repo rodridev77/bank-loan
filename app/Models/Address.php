@@ -5,6 +5,7 @@ namespace app\Models;
 class Address {
     private int $id;
     private int $clientId;
+    private int $bankId;
     private string $zipcode;
     private string $street;
     private int $number;
@@ -27,6 +28,14 @@ class Address {
     
     public function getClientId() : int {
         return $this->clientId ?? 0;
+    }
+
+    public function setBankId(int $id) : void {
+        $this->bankId = intval(trim($id));
+    }
+    
+    public function getBankId() : int {
+        return $this->bankId ?? 0;
     }
     
     public function setZipcode(string $zipcode) : void {

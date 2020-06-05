@@ -56,13 +56,9 @@ class BankDAO {
                 $stmt->closeCursor();
                 $addressDAO = new AddressDAO();
 
-                if ($bank->getAddress()->getClientId() !== 0):
-                    $addressDAO->update($bank->getAddress(), $bank->getId());
+                if ($bank->getAddress()->getBankId() !== 0):
+                    return $addressDAO->update($bank->getAddress(), array("bank_id" => $bank->getId()));
                 else:
-                    $addressDAO->insert($bank->getAddress(), $bank->getId());
-                endif;
-                    
-                return true;
             }
         } catch (PDOException $e) {
             die("Error: " . $e->getMessage());

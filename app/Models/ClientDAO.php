@@ -60,9 +60,9 @@ class ClientDAO {
                 $addressDAO = new AddressDAO();
 
                 if ($client->getAddress()->getClientId() !== 0):
-                    $addressDAO->update($client->getAddress(), $client->getId());
+                    $addressDAO->update($client->getAddress(), array("client_id" => $client->getId()));
                 else:
-                    $addressDAO->insert($client->getAddress(), $client->getId());
+                    $addressDAO->insert($client->getAddress(), array("client_id" => $client->getId()));
                 endif;
                     
                 return true;
