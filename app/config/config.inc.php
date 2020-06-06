@@ -5,6 +5,8 @@ include_once "environment.php";
 include "libs/vendor/autoload.php";
 //include_once dirname("my_autoload") . "/my_autoload.php";
 
+date_default_timezone_set('America/Sao_Paulo');
+
 // CONFIGURAÇÃO DO AMBIENTE #####################
 if (ENVIRONMENT == "development") {
     define("BASE_URL", "http://localhost/bank-loan");

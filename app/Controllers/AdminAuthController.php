@@ -5,6 +5,7 @@ namespace app\Controllers;
 use app\Core\Controller;
 use app\Models\AdminAuth;
 use app\Models\Manager;
+use app\Controllers\LogController;
 
 class AdminAuthController extends Controller {
 
@@ -40,6 +41,7 @@ class AdminAuthController extends Controller {
                 $_SESSION['manager'] = [];
                 $_SESSION['manager']['token'] = $adminAuth->getManageToken();
                 $_SESSION['manager']['bank_id'] = $adminAuth->getManageBankId();
+                LogController::firstAccess(null,$adminAuth->getManageBankId());
             endif;
         }
 
@@ -61,6 +63,7 @@ class AdminAuthController extends Controller {
     }
 
     public function signout() {
+        Logcontroller::lastAccess();
         unset($_SESSION['manager']);
         header("Location:" . BASE_URL . "/adminAuth");
         exit;

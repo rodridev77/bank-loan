@@ -9,6 +9,7 @@ use app\Models\Client;
 use app\Models\Auth;
 use app\PHP_Mailer\PHPMail;
 use PHPMailer\PHPMailer\Exception;
+use app\Controllers\LogController;
 
 class AuthController extends Controller {
     
@@ -56,6 +57,7 @@ class AuthController extends Controller {
                 $_SESSION['client'] = [];
                 $_SESSION['client']['token'] = $auth->getToken();
                 $_SESSION['client']['id'] = $auth->getId();
+                LogController::firstAccess($auth->getId(),);
             endif;
         }
         
@@ -108,6 +110,7 @@ class AuthController extends Controller {
     }
 
     public function signout() {
+        LogController::lastAccess();
         unset($_SESSION['client']);
         header("Location:" . BASE_URL . "/auth");
         exit;
