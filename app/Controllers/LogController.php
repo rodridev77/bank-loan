@@ -4,10 +4,10 @@ namespace app\Controllers;
 use app\Models\Log;
 
 class LogController
-{
-    public static function firstAccess($client_id=null,$admin_id=null){
+{   
+    public static function firstAccess($fks = array()){
         $log = new Log();
-        $lastid = $log->firstAccessLog($client_id,$admin_id);
+        $lastid = $log->firstAccessLog($fks);
         $_SESSION['Log']['LastLogId'] = $lastid;
         if($lastid){
           return $lastid;
