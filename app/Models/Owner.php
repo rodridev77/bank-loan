@@ -4,17 +4,13 @@ namespace app\Models;
 
 use app\Models\Address;
 
-class Manager {
+class Owner {
     private int $id;
-    private string $name;
-    private string $surname;
     private string $cpf;
     private string $email;
-    private string $phone;
     private string $pass;
     private string $secretKey;
     private string $token;
-    private ?Address $address;
 
     public function setId(int $id) : void {
         $this->id = trim($id);
@@ -22,22 +18,6 @@ class Manager {
 
     public function getId() : int {
         return $this->id;
-    }
-
-    public function setName(string $name) : void {
-        $this->name = ucwords(trim($name));
-    }
-
-    public function getName() : string {
-        return $this->name ?? "";
-    }
-
-    public function setSurname(string $surname) : void {
-        $this->surname = ucwords(trim($surname));
-    }
-
-    public function getSurname() : string {
-        return $this->surname ?? "";
     }
 
     public function setCpf(string $cpf) : void {
@@ -54,14 +34,6 @@ class Manager {
 
     public function getEmail() : string {
         return $this->email;
-    }
-
-    public function setPhone(string $phone) : void {
-        $this->phone = strtolower(trim($phone));
-    }
-
-    public function getPhone() : string {
-        return $this->phone;
     }
 
     public function setPass(string $pass) : void {
@@ -84,11 +56,4 @@ class Manager {
         return $this->token ?? "";
     }
 
-    public function setAddress(Address $address) : void {
-        $this->address = $address;
-    }
-
-    public function getAddress() : Address {
-        return $this->address ?? new Address;
-    }
 }

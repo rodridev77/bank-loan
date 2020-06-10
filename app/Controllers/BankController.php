@@ -89,6 +89,47 @@ class BankController extends Controller {
         echo json_encode($response);
     }
 
+    public function updateBank() {
+        $bankDAO = new BankDAO();
+        $addressDAO = new AddressDAO();
+
+        /**if (self::isLogged() && $clientDAO->isActived(self::getClientId())):
+            header("Location: " . BASE_URL . "/home");
+        endif;*/
+        
+        $response["success"] = false;
+        $form = json_decode(file_get_contents('php://input'), true);
+            
+        in_array(null, $form, true) ? header("Location: " . BASE_URL . "/adminauth") : $form = filter_var_array($form, FILTER_SANITIZE_STRING);
+        extract($form);
+        $email = filter_var($email,FILTER_VALIDATE_EMAIL);
+        
+        if ($name && $cnpj && $phone && $email && $zipcode && $address && $number && $district && $city && $state && $id) {
+            $bank = new Bank();
+            $bankAddress = new Address();
+
+            $bank->setName($name);
+            $bank->setCnpj($cnpj);
+            $bank->setPhone($phone);
+            $bank->setEmail($email);
+            $bank->setId($id);
+
+            $bankAddress->setZipcode($zipcode);
+            $bankAddress->setStreet($address);
+            $bankAddress->setNumber($number);
+            $bankAddress->setOptional($optional);
+            $bankAddress->setDistrict($district);
+            $bankAddress->setCity($city);
+            $bankAddress->setState($state);
+
+            $bank->setAddress($bankAddress);
+
+            $response["success"] = $bankDAO->update($bank);
+        }
+        
+        echo json_encode($response);
+    }
+
     public function remove() {
         $response = ['success' => true];
 

@@ -104,6 +104,51 @@ function recover(){
     }
 }
 
+// ****** SIGIN OWNER ********/
+function signinOwner() {
+    document.querySelector('#signin-form').addEventListener('submit', event => {
+        event.preventDefault();
+    });
+
+    let cpf = document.querySelector("#signin-cpf").value;
+    let pass = document.querySelector("#signin-pass").value;
+    let key = document.querySelector("#signin-secret-key").value;
+
+    if ((cpf.length && pass.length && key.length) !== 0) {
+        let data = {
+            cpf: cpf,
+            pass: pass,
+            key: key
+        };
+
+        let options = {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        const URL = BASE_URL + 'ownerauth/signin';
+        fetch(URL, options).then(response => response.json())
+        .then(data => { 
+            if (data.success === true) {
+                window.location = BASE_URL + 'ownerhome';
+            } else {
+
+                let message = "authentication failed";
+                let modalAlert = '#auth-alert';
+                let classAlert = 'alert-warning';
+
+                messageAlert(message, modalAlert, classAlert);
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+}
+
 // ****** CRUD BANK ********/
 function insertBank() {
     
@@ -155,6 +200,76 @@ function insertBank() {
             
             if (data.success === true) {
                 message = "Success: The bank has registered";
+                classAlert = 'alert-success';
+
+                messageAlert(message, modalAlert, classAlert);
+
+                window.setTimeout(function() {
+                    window.location.href = window.location.href;
+                }, 5000);
+               
+            } else {
+                messageAlert(message, modalAlert, classAlert);
+           }
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+}
+
+function updateBank() {
+    
+    document.querySelector('#bank-form').addEventListener('submit', event => {
+        event.preventDefault();
+    });
+    let name = document.querySelector("#bank-name").value;
+    let cnpj = document.querySelector("#bank-cnpj").value;
+    let phone = document.querySelector("#bank-phone").value;
+    let email = document.querySelector("#bank-email").value;
+    let id = document.querySelector("#bank-id").value;
+
+    let zipcode = document.querySelector("#bank-zipcode").value;
+    let address = document.querySelector("#bank-address").value;
+    let number = document.querySelector("#bank-number").value;
+    let optional = document.querySelector("#bank-optional").value;
+    let district = document.querySelector("#bank-district").value;
+    let city = document.querySelector("#bank-city").value;
+    let state = document.querySelector("#bank-state").value;
+
+    if ((name.length && cnpj.length && phone.length && email.length && zipcode && address && district && state && city && id) !== 0) {
+        let data = {
+            name: name,
+            cnpj: cnpj,
+            phone: phone,
+            email: email,
+            zipcode: zipcode,
+            address: address,
+            number: number,
+            optional: optional,
+            district: district,
+            city: city,
+            state: state,
+            id: id
+        };
+
+        let options = {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        const URL = BASE_URL + 'bank/updatebank';
+        fetch(URL, options).then(response => response.json())
+        .then(data => {
+            let message = "Error: Do not was possible to update the bank";
+            let modalAlert = '#bank-alert';
+            let classAlert = 'alert-warning'
+            
+            if (data.success === true) {
+                message = "Success: The bank has updated";
                 classAlert = 'alert-success';
 
                 messageAlert(message, modalAlert, classAlert);
