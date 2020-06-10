@@ -57,7 +57,7 @@ class AuthController extends Controller {
                 $_SESSION['client'] = [];
                 $_SESSION['client']['token'] = $auth->getToken();
                 $_SESSION['client']['id'] = $auth->getId();
-                LogController::firstAccess($auth->getId(),);
+                LogController::firstAccess(array("client_id"=>$auth->getId()));
             endif;
         }
         

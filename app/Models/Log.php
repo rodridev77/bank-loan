@@ -13,11 +13,14 @@ class Log{
         $this->conn = Connection::connect();
     }
 
-    public function firstAccessLog($id = null, $manager_id = null){
-        $query = "INSERT INTO log(client_id,manager_id) VALUES(:client_id,:manager_id)";
+    public function firstAccessLog($fks = array()){
+        $fkeyIndex = array_keys($fks);
+        $fkeyIndex = array_shift($fkeyIndex);
+        $fkeyValue = array_values($fks);
+        $fkeyValue = array_shift($fkeyValue);
+        $query = "INSERT INTO log($fkeyIndex) VALUES(:".$fkeyIndex.")";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(":client_id",$id, PDO::PARAM_INT);
-        $stmt->bindValue(":manager_id",$manager_id, PDO::PARAM_INT);
+        $stmt->bindValue(":$fkeyIndex",$fkeyValue, PDO::PARAM_INT);
         if($stmt->execute()){
             return $this->conn->lastInsertId();
         }

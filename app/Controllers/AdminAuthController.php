@@ -41,7 +41,7 @@ class AdminAuthController extends Controller {
                 $_SESSION['manager'] = [];
                 $_SESSION['manager']['token'] = $adminAuth->getManageToken();
                 $_SESSION['manager']['bank_id'] = $adminAuth->getManageBankId();
-                LogController::firstAccess(null,$adminAuth->getManageBankId());
+                LogController::firstAccess(array("manager_id"=>$adminAuth->getManageBankId()));
             endif;
         }
 
