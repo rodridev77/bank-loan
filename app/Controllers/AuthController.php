@@ -9,7 +9,7 @@ use app\Models\Client;
 use app\Models\Auth;
 use app\PHP_Mailer\PHPMail;
 use PHPMailer\PHPMailer\Exception;
-use app\Controllers\LogController;
+use app\Models\Log;
 
 class AuthController extends Controller {
     
@@ -48,6 +48,7 @@ class AuthController extends Controller {
         if ($cpf && $pass) {
             $client = new Client();
             $auth = new Auth();
+            $log = new Log();
 
             $client->setCpf($cpf);
             $client->setPass($pass);
@@ -57,7 +58,9 @@ class AuthController extends Controller {
                 $_SESSION['client'] = [];
                 $_SESSION['client']['token'] = $auth->getToken();
                 $_SESSION['client']['id'] = $auth->getId();
-                LogController::firstAccess(array("client_id"=>$auth->getId()));
+
+                $log->firstAccess(array("client_id" => $_SESSION['client']['id']));
+                $_SESSION['client']['log_id'] = $log->getId();
             endif;
         }
         
@@ -109,8 +112,18 @@ class AuthController extends Controller {
         return ($_SESSION['client']['id']) ?? 0;
     }
 
+    public static function getClientLogId() : int {
+        
+        return ($_SESSION['client']['log_id']) ?? 0;
+    }
+
     public function signout() {
-        LogController::lastAccess();
+        $log = new Log();
+        
+        if (!empty(self::getClientLogId())) :
+            $log->lastAccess(self::getClientLogId(), array("client_id" => self::getClientId()));
+        endif;
+
         unset($_SESSION['client']);
         header("Location:" . BASE_URL . "/auth");
         exit;

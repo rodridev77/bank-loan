@@ -5,7 +5,7 @@ namespace app\Controllers;
 use app\Core\Controller;
 use app\Models\AdminAuth;
 use app\Models\Manager;
-use app\Controllers\LogController;
+use app\Models\Log;
 
 class AdminAuthController extends Controller {
 
@@ -31,6 +31,7 @@ class AdminAuthController extends Controller {
         if ($cpf && $pass) {
             $manager = new Manager();
             $adminAuth = new AdminAuth();
+            $log = new Log();
 
             $manager->setCpf($cpf);
             $manager->setPass($pass);
@@ -40,8 +41,10 @@ class AdminAuthController extends Controller {
             if ($response["success"] === true):
                 $_SESSION['manager'] = [];
                 $_SESSION['manager']['token'] = $adminAuth->getManageToken();
-                $_SESSION['manager']['bank_id'] = $adminAuth->getManageBankId();
-                LogController::firstAccess(array("manager_id"=>$adminAuth->getManageBankId()));
+                $_SESSION['manager']['manager_id'] = $adminAuth->getManageManagerId();
+
+                $log->firstAccess(array("manager_id" => $_SESSION['manager']['manager_id']));
+                $_SESSION['manager']['log_id'] = $log->getId();
             endif;
         }
 
@@ -57,13 +60,23 @@ class AdminAuthController extends Controller {
         endif;
     }
 
-    public static function getManageBankId() : int {
+    public static function getManagerId() : int {
         
-        return ($_SESSION['manager']['bank_id']) ?? 0;
+        return ($_SESSION['manager']['manager_id']) ?? 0;
+    }
+
+    public static function getManagerLogId() : int {
+        
+        return ($_SESSION['manager']['log_id']) ?? 0;
     }
 
     public function signout() {
-        Logcontroller::lastAccess();
+        $log = new Log();
+        
+        if (!empty(self::getManagerLogId())) :
+            $log->lastAccess(self::getManagerLogId(), array("manager_id" => self::getManagerId()));
+        endif;
+
         unset($_SESSION['manager']);
         header("Location:" . BASE_URL . "/adminAuth");
         exit;

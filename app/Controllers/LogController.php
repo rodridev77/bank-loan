@@ -7,9 +7,11 @@ class LogController
 {   
     public static function firstAccess($fks = array()){
         $log = new Log();
+
         $lastid = $log->firstAccessLog($fks);
         $_SESSION['Log']['LastLogId'] = $lastid;
-        if($lastid){
+
+        if($lastid) :
           return $lastid;
         }
     }
